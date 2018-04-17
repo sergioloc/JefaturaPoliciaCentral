@@ -1,18 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.cdi.practica.jefaturapoliciacentral.MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cdi.practica.jefaturapoliciacentral.MainActivity">
+    android:orientation="horizontal"
+    android:background="#375052">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <devlight.io.library.ntb.NavigationTabBar
+            app:ntb_title_mode="all"
+            app:ntb_titled="true"
+            app:ntb_title_size="14sp"
+            android:id="@+id/ntb_vertical"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:ntb_preview_colors="@array/vertical_ntb"/>
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_vertical_ntb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>

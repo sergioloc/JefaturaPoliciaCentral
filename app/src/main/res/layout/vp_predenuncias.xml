@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabTextColor="@color/yellow"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorColor="@color/yellow"/>
+
+    <TextView
+        android:id="@+id/textoPre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Predenuncias nivel 1"
+        android:layout_below="@+id/tabs"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvPre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/textoPre"/>
+
+</RelativeLayout>
