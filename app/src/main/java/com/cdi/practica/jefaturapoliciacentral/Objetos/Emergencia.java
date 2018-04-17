@@ -5,33 +5,33 @@ package com.cdi.practica.jefaturapoliciacentral.Objetos;
  */
 
 public class Emergencia {
-    private String tipo;
-    private String lugar;
+    private String idUsuario;
+    private String ubicacion;
     private String hora;
 
     public Emergencia() {
     }
 
-    public Emergencia(String tipo, String lugar, String hora) {
-        this.tipo = tipo;
-        this.lugar = lugar;
+    public Emergencia(String idUsuario, String ubicacion, String hora) {
+        this.idUsuario = idUsuario;
+        this.ubicacion = ubicacion;
         this.hora = hora;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getLugar() {
-        return lugar;
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public String getHora() {
@@ -41,4 +41,6 @@ public class Emergencia {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+
 }

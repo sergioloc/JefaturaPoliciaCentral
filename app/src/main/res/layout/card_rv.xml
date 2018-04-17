@@ -20,15 +20,17 @@
         android:layout_toRightOf="@id/textoHora"
         android:textSize="17dp"
         android:gravity="center|left"
+        android:visibility="invisible"
         android:textColor="@color/white"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="40dp"
         android:text="Tipo"/>
+
     <TextView
         android:id="@+id/textoLugar"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:textSize="17dp"
-        android:layout_toRightOf="@+id/textoTipo"
+        android:layout_toRightOf="@+id/textoHora"
         android:gravity="center"
         android:textColor="@color/white"
         android:layout_marginLeft="40dp"

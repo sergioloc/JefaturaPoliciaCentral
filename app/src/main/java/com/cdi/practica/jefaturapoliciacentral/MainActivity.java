@@ -12,11 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterAge;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterPre;
-import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterRV;
+import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterEmg;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterUsu;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Agente;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Emergencia;
@@ -30,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import devlight.io.library.ntb.NavigationTabBar;
@@ -42,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
     //Firebase
     private FirebaseDatabase database;
     private FirebaseUser user;
-    private DatabaseReference refPre, refUsu, refAge;
-    private ArrayList pre1, pre2, pre3, agentesList, usuariosList;
+    private DatabaseReference refPre, refUsu, refAge, refEmg;
+    private ArrayList pre1, pre2, pre3, agentesList, usuariosList, emergenciasList;
     private RecyclerView rvPre, rvAge, rvUsu;
     private AdapterPre adapterPre;
     private AdapterAge adapterAge;
     private AdapterUsu adapterUsu;
+    private AdapterEmg adapterEmg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         refPre = database.getReference("predenuncias").child("nueva");
         refUsu = database.getReference("usuarios");
         refAge = database.getReference("agentes");
+        refEmg = database.getReference("emergencias").child("pendientes");
     }
     private void initViewPager() {
         viewPager = (ViewPager) findViewById(R.id.vp_vertical_ntb);
@@ -174,15 +174,13 @@ public class MainActivity extends AppCompatActivity {
     private void viewEmgergencias(){
         view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_emegencias, null, false);
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rvEmg);
-        ArrayList emg = new ArrayList();
-        emg.add(new Emergencia("Atentado","Manazanares","22:45"));
-        emg.add(new Emergencia("Violación","Sol","16:00"));
-        emg.add(new Emergencia("Agresión","Tetuan","02:05"));
+        emergenciasList = new ArrayList();
         rv.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
-        AdapterRV adapterRV = new AdapterRV(emg);
-        rv.setAdapter(adapterRV);
+        adapterEmg = new AdapterEmg(emergenciasList);
+        rv.setAdapter(adapterEmg);
+        cargarEmergencias();
     }
     private void viewPredenuncias(){
         // View
@@ -281,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void cargarAgentes(){
+    public void cargarAgentes(){
         refAge.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -307,6 +305,23 @@ public class MainActivity extends AppCompatActivity {
                     usuariosList.add(usuario);
                 }
                 adapterUsu.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void cargarEmergencias(){
+        refEmg.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Emergencia emergencia = snapshot.getValue(Emergencia.class);
+                    emergenciasList.add(emergencia);
+                }
+                adapterEmg.notifyDataSetChanged();
             }
 
             @Override
