@@ -12,10 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterPre;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterRV;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Emergencia;
+import com.cdi.practica.jefaturapoliciacentral.Objetos.Predenuncia;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import devlight.io.library.ntb.NavigationTabBar;
@@ -23,17 +34,33 @@ import devlight.io.library.ntb.NavigationTabBar;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager,viewPager2;
-    private View view,view2;
+    private View view;
+    //Firebase
+    private FirebaseDatabase database;
+    private FirebaseUser user;
+    private DatabaseReference refPre, refUsu;
+    private ArrayList pre1, pre2, pre3;
+    private RecyclerView rvPre;
+    private AdapterPre adapterPre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initVP();
+
+        initFirebase();
+        initViewPager();
         init();
+        cargarPredenuncias();
     }
 
-    private void initVP() {
+    private void initFirebase(){
+        database = FirebaseDatabase.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        refPre = database.getReference("predenuncias").child("nueva");
+        refUsu = database.getReference("users");
+    }
+    private void initViewPager() {
         viewPager = (ViewPager) findViewById(R.id.vp_vertical_ntb);
         viewPager.setAdapter(new PagerAdapter() {
             @Override
@@ -56,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if(position==0){ //Emergencias
-                    initEmg();
+                    viewEmg();
                 }else if(position==1){ //Predenuncias
-                    initPre();
+                    viewPre();
                 }else if(position==2){ //Denuncias
                     view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_denuncias, null, false);
                 }else if(position==3){ //Agentes
@@ -72,84 +99,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void initEmg(){
-        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_emegencias, null, false);
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rvEmg);
-        ArrayList emg = new ArrayList();
-        emg.add(new Emergencia("Atentado","Manazanares","22:45"));
-        emg.add(new Emergencia("Violación","Sol","16:00"));
-        emg.add(new Emergencia("Agresión","Tetuan","02:05"));
-        rv.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        rv.setLayoutManager(llm);
-        AdapterRV adapterRV = new AdapterRV(emg);
-        rv.setAdapter(adapterRV);
-    }
-
-    private void initPre(){
-
-        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_predenuncias, null, false);
-        final TextView textoPre = (TextView) view.findViewById(R.id.textoPre);
-
-        //Tabs
-        TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("1"));
-        tabs.addTab(tabs.newTab().setText("2"));
-        tabs.addTab(tabs.newTab().setText("3"));
-
-        //RecyclerView
-        final RecyclerView rvPre = (RecyclerView) view.findViewById(R.id.rvPre);
-        rvPre.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        rvPre.setLayoutManager(llm);
-
-        //Listas de pruebas
-        final ArrayList pre1 = new ArrayList();
-        final ArrayList pre2 = new ArrayList();
-        final ArrayList pre3 = new ArrayList();
-        pre1.add(new Emergencia("Amenaza","c/ azul","12:15"));
-        pre1.add(new Emergencia("Homicidio","c/ verde","07:00"));
-        pre2.add(new Emergencia("Hurto","c/ morado","14:45"));
-        pre3.add(new Emergencia("Estafa","c/ blanco","06:05"));
-
-        textoPre.setText("Predenuncias nivel 1");
-        AdapterRV adapterPre = new AdapterRV(pre1);
-        rvPre.setAdapter(adapterPre);
-
-
-        tabs.setOnTabSelectedListener(
-                new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        AdapterRV adapterPre = null;
-                        int pos = tab.getPosition();
-                        if(pos==0){
-                            textoPre.setText("Predenuncias nivel 1");
-                            adapterPre = new AdapterRV(pre1);
-                        }else if (pos==1){
-                            textoPre.setText("Predenuncias nivel 2");
-                             adapterPre = new AdapterRV(pre2);
-                        }else if (pos==2){
-                            textoPre.setText("Predenuncias nivel 3");
-                            adapterPre = new AdapterRV(pre3);
-                        }
-                        rvPre.setAdapter(adapterPre);
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-                        // ...
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-                        // ...
-                    }
-                }
-        );
-    }
-
     private void init(){
         final String[] colors = getResources().getStringArray(R.array.vertical_ntb);
         final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_vertical);
@@ -212,5 +161,94 @@ public class MainActivity extends AppCompatActivity {
         navigationTabBar.setTitleSize(10);
         navigationTabBar.setIconSizeFraction((float) 0.5);
 
+    }
+
+
+    private void viewEmg(){
+        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_emegencias, null, false);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rvEmg);
+        ArrayList emg = new ArrayList();
+        emg.add(new Emergencia("Atentado","Manazanares","22:45"));
+        emg.add(new Emergencia("Violación","Sol","16:00"));
+        emg.add(new Emergencia("Agresión","Tetuan","02:05"));
+        rv.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rv.setLayoutManager(llm);
+        AdapterRV adapterRV = new AdapterRV(emg);
+        rv.setAdapter(adapterRV);
+    }
+
+    private void viewPre(){
+        // View
+        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_predenuncias, null, false);
+        final TextView textoPre = (TextView) view.findViewById(R.id.textoPre);
+        // Tabs
+        TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText("1"));
+        tabs.addTab(tabs.newTab().setText("2"));
+        tabs.addTab(tabs.newTab().setText("3"));
+        // RecyclerView
+        rvPre = (RecyclerView) view.findViewById(R.id.rvPre);
+        rvPre.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rvPre.setLayoutManager(llm);
+        // ArrayList
+        pre1 = new ArrayList();
+        pre2 = new ArrayList();
+        pre3 = new ArrayList();
+
+        textoPre.setText("Predenuncias nivel 1");
+        adapterPre = new AdapterPre(pre1);
+        rvPre.setAdapter(adapterPre);
+
+        tabs.setOnTabSelectedListener(
+                new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        int pos = tab.getPosition();
+                        if(pos==0){
+                            textoPre.setText("Predenuncias nivel 1");
+                            adapterPre = new AdapterPre(pre1);
+                        }else if (pos==1){
+                            textoPre.setText("Predenuncias nivel 2");
+                             adapterPre = new AdapterPre(pre2);
+                        }else if (pos==2){
+                            textoPre.setText("Predenuncias nivel 3");
+                            adapterPre = new AdapterPre(pre3);
+                        }
+                        rvPre.setAdapter(adapterPre);
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {}
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {}
+                }
+        );
+    }
+
+    private void cargarPredenuncias(){
+        refPre.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Predenuncia predenuncia = snapshot.getValue(Predenuncia.class);
+                    if(predenuncia.getTipo().equals("Agresión")||predenuncia.getTipo().equals("Abuso")||predenuncia.getTipo().equals("Homicidio")||predenuncia.getTipo().equals("Amenaza")){
+                        pre1.add(predenuncia);
+                    }else if(predenuncia.getTipo().equals("Hurto")||predenuncia.getTipo().equals("Robo")||predenuncia.getTipo().equals("Lesión")||predenuncia.getTipo().equals("Acoso")){
+                        pre2.add(predenuncia);
+                    }else if(predenuncia.getTipo().equals("Fraude")||predenuncia.getTipo().equals("Estafa")||predenuncia.getTipo().equals("Difamación")||predenuncia.getTipo().equals("Injuria")){
+                        pre3.add(predenuncia);
+                    }
+                }
+                adapterPre.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
