@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+    <TextView
+        android:id="@+id/textoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginLeft="5dp"
+        android:text="Hora"/>
+
+    <TextView
+        android:id="@+id/textoNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/textoId"
+        android:textSize="17dp"
+        android:layout_toRightOf="@+id/textoId"
+        android:gravity="center|left"
+        android:textColor="@color/white"
+        android:text="Tipo"/>
+
+
+</RelativeLayout>
