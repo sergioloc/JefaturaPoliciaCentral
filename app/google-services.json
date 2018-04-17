@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "1059086508221",
+    "firebase_url": "https://jefatura-policia.firebaseio.com",
+    "project_id": "jefatura-policia",
+    "storage_bucket": "jefatura-policia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059086508221:android:2798317011dd81fd",
+        "android_client_info": {
+          "package_name": "com.cdi.practica.jefaturapoliciaagente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059086508221-1pg45j90sjs666rk3cvsf6mo881e3dv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cdi.practica.jefaturapoliciaagente",
+            "certificate_hash": "d30e9b5597e948246574ac757c4664dd7a3ce35b"
+          }
+        },
+        {
+          "client_id": "1059086508221-pi0nvsaalingjgoituj1eggv6oldsf3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcn_JXYL7S4ClFBMAIgUa-2uhWe9JoArY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059086508221-pi0nvsaalingjgoituj1eggv6oldsf3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059086508221:android:e442f4a0fe22f00c",
+        "android_client_info": {
+          "package_name": "com.cdi.practica.jefaturapoliciacentral"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059086508221-v6cua8d7qn49srkntc6665tckq8jgvpb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cdi.practica.jefaturapoliciacentral",
+            "certificate_hash": "d30e9b5597e948246574ac757c4664dd7a3ce35b"
+          }
+        },
+        {
+          "client_id": "1059086508221-pi0nvsaalingjgoituj1eggv6oldsf3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcn_JXYL7S4ClFBMAIgUa-2uhWe9JoArY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059086508221-pi0nvsaalingjgoituj1eggv6oldsf3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059086508221:android:6e1837a5741fdc46",
+        "android_client_info": {
+          "package_name": "com.cdi.practica.jefaturapoliciausuario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059086508221-b2opq2frhu83i05uihs2se4fpruhq9cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cdi.practica.jefaturapoliciausuario",
+            "certificate_hash": "d30e9b5597e948246574ac757c4664dd7a3ce35b"
+          }
+        },
+        {
+          "client_id": "1059086508221-pi0nvsaalingjgoituj1eggv6oldsf3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcn_JXYL7S4ClFBMAIgUa-2uhWe9JoArY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059086508221-pi0nvsaalingjgoituj1eggv6oldsf3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
