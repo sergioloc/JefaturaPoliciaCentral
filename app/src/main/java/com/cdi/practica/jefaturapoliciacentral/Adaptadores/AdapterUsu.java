@@ -1,5 +1,6 @@
 package com.cdi.practica.jefaturapoliciacentral.Adaptadores;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
  */
 
 public class AdapterUsu extends RecyclerView.Adapter<AdapterUsu.UsuViewHolder>{
+
+    private Context context;
 
     public static class UsuViewHolder extends RecyclerView.ViewHolder {
         TextView dni;
@@ -49,7 +52,19 @@ public class AdapterUsu extends RecyclerView.Adapter<AdapterUsu.UsuViewHolder>{
     public void onBindViewHolder(UsuViewHolder ageViewHolder, int i) {
         ageViewHolder.dni.setText(item.get(i).getDni());
         ageViewHolder.nombre.setText(item.get(i).getApellidos()+", "+item.get(i).getNombre());
+        /*
+        context = ageViewHolder.dni.getContext();
+
+        ageViewHolder.nombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        */
     }
+
+
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

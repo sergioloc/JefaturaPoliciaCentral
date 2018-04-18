@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+    <ImageView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_blue"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/textoTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/card"
+        android:layout_marginTop="5dp"
+        android:text="Tipo"/>
+
+    <TextView
+        android:id="@+id/textoNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+
+        android:textSize="17dp"
+        android:gravity="center|left"
+        android:layout_below="@+id/textoTipo"
+        android:textColor="@color/white"
+        android:layout_alignLeft="@+id/textoTipo"
+        android:text="Nombre"/>
+
+    <TextView
+        android:id="@+id/textoDni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_below="@+id/textoNombre"
+        android:textColor="@color/white"
+        android:layout_alignLeft="@+id/textoTipo"
+        android:text="DNI"/>
+
+</RelativeLayout>

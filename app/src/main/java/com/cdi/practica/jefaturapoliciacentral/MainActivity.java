@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterAge;
+import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterDen;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterPre;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterEmg;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterUsu;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Agente;
+import com.cdi.practica.jefaturapoliciacentral.Objetos.Denuncia;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Emergencia;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Predenuncia;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Usuario;
@@ -40,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
     //Firebase
     private FirebaseDatabase database;
     private FirebaseUser user;
-    private DatabaseReference refPre, refUsu, refAge, refEmg;
-    private ArrayList pre1, pre2, pre3, pre4, pre5, agentesList, usuariosList, emergenciasList;
-    private RecyclerView rvPre, rvAge, rvUsu;
+    private DatabaseReference refPre, refUsu, refAge, refEmg, refDen;
+    private ArrayList pre1,pre2,pre3,pre4,pre5,agentesList,usuariosList,emergenciasList,denunciasList;
+    private RecyclerView rvPre, rvAge, rvUsu, rvDen;
     private AdapterPre adapterPre;
     private AdapterAge adapterAge;
     private AdapterUsu adapterUsu;
     private AdapterEmg adapterEmg;
+    private AdapterDen adapterDen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         refUsu = database.getReference("usuarios");
         refAge = database.getReference("agentes");
         refEmg = database.getReference("emergencias").child("pendientes");
+        refDen = database.getReference("denuncias");
     }
     private void initViewPager() {
         viewPager = (ViewPager) findViewById(R.id.vp_vertical_ntb);
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if(position==1){ //Predenuncias
                     viewPredenuncias();
                 }else if(position==2){ //Denuncias
-                    view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_denuncias, null, false);
+                    viewDenuncias();
                 }else if(position==3){ //Agentes
                     viewAgentes();
                 }else if(position==4){ //Usuarios
@@ -264,6 +268,17 @@ public class MainActivity extends AppCompatActivity {
         rvUsu.setAdapter(adapterUsu);
         cargarUsuarios();
     }
+    private void viewDenuncias(){
+        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_denuncias, null, false);
+        denunciasList = new ArrayList();
+        rvDen = (RecyclerView) view.findViewById(R.id.rvDen);
+        rvDen.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rvDen.setLayoutManager(llm);
+        adapterDen = new AdapterDen(denunciasList);
+        rvDen.setAdapter(adapterDen);
+        cargarDenuncias();
+    }
 
     /**BBDD**/
     private void cargarPredenuncias(){
@@ -336,6 +351,23 @@ public class MainActivity extends AppCompatActivity {
                     emergenciasList.add(emergencia);
                 }
                 adapterEmg.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void cargarDenuncias(){
+        refDen.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Denuncia denuncia = snapshot.getValue(Denuncia.class);
+                    denunciasList.add(denuncia);
+                }
+                adapterDen.notifyDataSetChanged();
             }
 
             @Override

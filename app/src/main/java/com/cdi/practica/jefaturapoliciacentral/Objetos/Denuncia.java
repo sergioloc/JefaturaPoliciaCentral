@@ -1,11 +1,10 @@
 package com.cdi.practica.jefaturapoliciacentral.Objetos;
 
 /**
- * Created by Sergio on 17/04/2018.
+ * Created by Sergio on 18/04/2018.
  */
 
-public class Usuario {
-
+public class Denuncia {
     private String nombre;
     private String apellidos;
     private String dni;
@@ -15,10 +14,17 @@ public class Usuario {
     private String nacimiento;
     private String nacionalidad;
     private String domicilio;
+    private String tipo;
+    private String ubicacion;
+    private String hora;
+    private String descipcion;
 
-    public Usuario(){}
+    public Denuncia() {
+    }
 
-    public Usuario(String nombre, String apellidos, String dni, String sexo, String telefono, String email, String nacimiento, String nacionalidad, String domicilio) {
+    public Denuncia(String nombre, String apellidos, String dni, String sexo, String telefono,
+                    String email, String nacimiento, String nacionalidad, String domicilio,
+                    String tipo, String ubicacion, String hora, String descipcion) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
@@ -28,6 +34,10 @@ public class Usuario {
         this.nacimiento = nacimiento;
         this.nacionalidad = nacionalidad;
         this.domicilio = domicilio;
+        this.tipo = tipo;
+        this.ubicacion = ubicacion;
+        this.hora = hora;
+        this.descipcion = descipcion;
     }
 
     public String getNombre() {
@@ -101,5 +111,36 @@ public class Usuario {
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
-}
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getDescipcion() {
+        return descipcion;
+    }
+
+    public void setDescipcion(String descipcion) {
+        this.descipcion = descipcion;
+    }
+}
