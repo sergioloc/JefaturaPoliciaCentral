@@ -3,6 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="50dp">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_yellow"
+        android:layout_margin="5dp"/>
+
     <TextView
         android:id="@+id/textoHora"
         android:layout_width="wrap_content"
@@ -10,7 +16,7 @@
         android:textSize="17dp"
         android:gravity="center"
         android:textColor="@color/white"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="20dp"
         android:text="Hora"/>
 
     <TextView
@@ -35,7 +41,5 @@
         android:textColor="@color/white"
         android:layout_marginLeft="40dp"
         android:text="Lugar"/>
-
-
 
 </RelativeLayout>

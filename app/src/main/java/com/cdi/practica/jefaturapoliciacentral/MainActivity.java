@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private FirebaseUser user;
     private DatabaseReference refPre, refUsu, refAge, refEmg;
-    private ArrayList pre1, pre2, pre3, agentesList, usuariosList, emergenciasList;
+    private ArrayList pre1, pre2, pre3, pre4, pre5, agentesList, usuariosList, emergenciasList;
     private RecyclerView rvPre, rvAge, rvUsu;
     private AdapterPre adapterPre;
     private AdapterAge adapterAge;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void initFirebase(){
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        refPre = database.getReference("predenuncias").child("nueva");
+        refPre = database.getReference("predenuncias").child("pendientes");
         refUsu = database.getReference("usuarios");
         refAge = database.getReference("agentes");
         refEmg = database.getReference("emergencias").child("pendientes");
@@ -191,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("1"));
         tabs.addTab(tabs.newTab().setText("2"));
         tabs.addTab(tabs.newTab().setText("3"));
+        tabs.addTab(tabs.newTab().setText("4"));
+        tabs.addTab(tabs.newTab().setText("5"));
         // RecyclerView
         rvPre = (RecyclerView) view.findViewById(R.id.rvPre);
         rvPre.setHasFixedSize(true);
@@ -200,6 +202,8 @@ public class MainActivity extends AppCompatActivity {
         pre1 = new ArrayList();
         pre2 = new ArrayList();
         pre3 = new ArrayList();
+        pre4 = new ArrayList();
+        pre5 = new ArrayList();
 
         textoPre.setText("Predenuncias nivel 1");
         adapterPre = new AdapterPre(pre1);
@@ -219,6 +223,12 @@ public class MainActivity extends AppCompatActivity {
                         }else if (pos==2){
                             textoPre.setText("Predenuncias nivel 3");
                             adapterPre = new AdapterPre(pre3);
+                        }else if (pos==3){
+                            textoPre.setText("Predenuncias nivel 4");
+                            adapterPre = new AdapterPre(pre4);
+                        }else if (pos==4){
+                            textoPre.setText("Predenuncias nivel 5");
+                            adapterPre = new AdapterPre(pre5);
                         }
                         rvPre.setAdapter(adapterPre);
                     }
@@ -262,12 +272,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Predenuncia predenuncia = snapshot.getValue(Predenuncia.class);
-                    if(predenuncia.getTipo().equals("Agresión")||predenuncia.getTipo().equals("Abuso")||predenuncia.getTipo().equals("Homicidio")||predenuncia.getTipo().equals("Amenaza")){
+                    if(predenuncia.getTipo().equals("Agresión")||predenuncia.getTipo().equals("Homicidio")){
                         pre1.add(predenuncia);
-                    }else if(predenuncia.getTipo().equals("Hurto")||predenuncia.getTipo().equals("Robo")||predenuncia.getTipo().equals("Lesión")||predenuncia.getTipo().equals("Acoso")){
+                    }else if(predenuncia.getTipo().equals("Abuso")||predenuncia.getTipo().equals("Robo")||predenuncia.getTipo().equals("Acoso")||predenuncia.getTipo().equals("Amenaza")){
                         pre2.add(predenuncia);
-                    }else if(predenuncia.getTipo().equals("Fraude")||predenuncia.getTipo().equals("Estafa")||predenuncia.getTipo().equals("Difamación")||predenuncia.getTipo().equals("Injuria")){
+                    }else if(predenuncia.getTipo().equals("Hurto")||predenuncia.getTipo().equals("Lesión")){
                         pre3.add(predenuncia);
+                    }else if(predenuncia.getTipo().equals("Fraude")||predenuncia.getTipo().equals("Estafa")){
+                        pre4.add(predenuncia);
+                    }else if(predenuncia.getTipo().equals("Difamación")||predenuncia.getTipo().equals("Injuria")){
+                        pre5.add(predenuncia);
                     }
                 }
                 adapterPre.notifyDataSetChanged();
@@ -330,4 +344,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

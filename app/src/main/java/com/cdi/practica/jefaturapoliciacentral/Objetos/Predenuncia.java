@@ -10,18 +10,18 @@ public class Predenuncia {
     private String ubicacion;
     private String hora;
     private String nombre;
-    private String appellidos;
+    private String apellidos;
     private String dni;
 
     public Predenuncia() {
     }
 
-    public Predenuncia(String tipo, String nombre, String appellidos, String dni, String ubicacion, String hora) {
+    public Predenuncia(String tipo, String nombre, String apellidos, String dni, String ubicacion, String hora) {
         this.tipo = tipo;
         this.ubicacion = ubicacion;
         this.hora = hora;
         this.nombre = nombre;
-        this.appellidos = appellidos;
+        this.apellidos = apellidos;
         this.dni = dni;
     }
 
@@ -57,12 +57,12 @@ public class Predenuncia {
         this.nombre = nombre;
     }
 
-    public String getAppellidos() {
-        return appellidos;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setAppellidos(String appellidos) {
-        this.appellidos = appellidos;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getDni() {

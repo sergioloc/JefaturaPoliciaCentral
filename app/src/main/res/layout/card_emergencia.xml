@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="50dp">
 
     <ImageView
-        android:id="@+id/card_agente"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/card_pink"
+        android:background="@drawable/card_red"
         android:layout_margin="5dp"/>
 
     <TextView
-        android:id="@+id/textoId"
+        android:id="@+id/textoHora"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="10dp"
-        android:textStyle="italic"
+        android:layout_height="50dp"
+        android:textSize="17dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:layout_marginLeft="20dp"
         android:text="Hora"/>
 
     <TextView
-        android:id="@+id/textoNombre"
+        android:id="@+id/textoTipo"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_below="@+id/textoId"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/textoHora"
         android:textSize="17dp"
-        android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/card_agente"
-        android:layout_alignLeft="@+id/textoId"
         android:gravity="center|left"
+        android:visibility="invisible"
         android:textColor="@color/white"
+        android:layout_marginLeft="40dp"
         android:text="Tipo"/>
 
+    <TextView
+        android:id="@+id/textoLugar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textSize="17dp"
+        android:layout_toRightOf="@+id/textoHora"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginLeft="40dp"
+        android:text="Lugar"/>
 
 </RelativeLayout>

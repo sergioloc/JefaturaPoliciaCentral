@@ -40,7 +40,7 @@ public class AdapterUsu extends RecyclerView.Adapter<AdapterUsu.UsuViewHolder>{
 
     @Override
     public UsuViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_agente, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_usuario, viewGroup, false);
         UsuViewHolder pvh = new UsuViewHolder(v);
         return pvh;
     }

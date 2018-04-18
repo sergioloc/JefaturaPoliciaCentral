@@ -12,13 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.cdi.practica.jefaturapoliciacentral.MainActivity;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Agente;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Emergencia;
 import com.cdi.practica.jefaturapoliciacentral.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,9 @@ import java.util.ArrayList;
  */
 
 public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
+
+    private ArrayList agentesList;
+    private Context context;
 
     public static class EmgViewHolder extends RecyclerView.ViewHolder {
         TextView idUsuario;
@@ -54,7 +59,7 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
 
     @Override
     public EmgViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_rv, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_emergencia, viewGroup, false);
         EmgViewHolder pvh = new EmgViewHolder(v);
         return pvh;
     }
@@ -65,21 +70,18 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
         emgViewHolder.idUsuario.setText(item.get(i).getIdUsuario());
         emgViewHolder.hora.setText(item.get(i).getHora());
 
-        Context context = emgViewHolder.hora.getContext();
+        context = emgViewHolder.hora.getContext();
 
         //Dialog
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_lista_agentes);
         Button cancelar = (Button) dialog.findViewById(R.id.cancelar);
         RecyclerView rv = (RecyclerView) dialog.findViewById(R.id.rvAge);
-        rv.setBackgroundColor(context.getResources().getColor(R.color.red));
-        ArrayList agentesList = new ArrayList();
+        agentesList = new ArrayList();
         rv.setHasFixedSize(true);
         LinearLayoutManager llm2 = new LinearLayoutManager(context);
         rv.setLayoutManager(llm2);
-        agentesList.add(new Agente("MAD-00009","Tony","Garcia"));
-        agentesList.add(new Agente("MAD-00012","Paco","Ruiz"));
-        agentesList.add(new Agente("MAD-00035","Sara","Estuche"));
+        cargarAgentes();
         AdapterAgeDialog adapterAge = new AdapterAgeDialog(agentesList);
         rv.setAdapter(adapterAge);
 
@@ -100,6 +102,13 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
                 dialog.show();
             }
         });
+
+    }
+
+    private void cargarAgentes(){
+        agentesList.add(new Agente("dmA60cSLAGOr7dT7FN7U5L32i4w2","Micheal","Scofield"));
+        agentesList.add(new Agente("jtNpdTBzKVNbExwYGpILQk6Fsr62","Thomas","Shelby"));
+        agentesList.add(new Agente("Ft2E9tHhbmcKgH1eeZRr3voWxZF3","Marty","McFly"));
 
     }
 

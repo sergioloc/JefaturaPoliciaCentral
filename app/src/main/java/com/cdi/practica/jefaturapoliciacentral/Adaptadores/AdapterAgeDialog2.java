@@ -26,27 +26,27 @@ import java.util.ArrayList;
  * Created by Sergio on 18/04/2018.
  */
 
-public class AdapterAgeDialog extends RecyclerView.Adapter<AdapterAge.AgeViewHolder>{
+public class AdapterAgeDialog2 extends RecyclerView.Adapter<AdapterAge.AgeViewHolder>{
 
-    private DatabaseReference refEmgPen,refEmgEsp,refEmgSel;
+    private DatabaseReference refPrePen,refPreEsp,refPreSel;
     private Context context;
 
-public static class AgeViewHolder extends RecyclerView.ViewHolder {
-    ImageView card;
-    TextView id;
-    TextView nombre;
+    public static class AgeViewHolder2 extends RecyclerView.ViewHolder {
+        ImageView card;
+        TextView id;
+        TextView nombre;
 
-    AgeViewHolder(View itemView) {
-        super(itemView);
-        id = (TextView)itemView.findViewById(R.id.textoId);
-        nombre = (TextView)itemView.findViewById(R.id.textoNombre);
-        card = (ImageView) itemView.findViewById(R.id.card_agente);
+        AgeViewHolder2(View itemView) {
+            super(itemView);
+            id = (TextView)itemView.findViewById(R.id.textoId);
+            nombre = (TextView)itemView.findViewById(R.id.textoNombre);
+            card = (ImageView) itemView.findViewById(R.id.card_agente);
+        }
     }
-}
 
     ArrayList<Agente> item;
 
-    public AdapterAgeDialog(ArrayList<Agente> item){
+    public AdapterAgeDialog2(ArrayList<Agente> item){
         this.item = item;
     }
 
@@ -69,24 +69,27 @@ public static class AgeViewHolder extends RecyclerView.ViewHolder {
 
         // Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        refEmgPen = database.getReference("emergencias").child("pendientes");
-        refEmgEsp = database.getReference("emergencias").child("espera");
-        refEmgSel = database.getReference("emergencias").child("seleccionada");
+        refPrePen = database.getReference("predenuncias").child("pendientes");
+        refPreEsp = database.getReference("predenuncias").child("espera");
+        refPreSel = database.getReference("predenuncias").child("seleccionada");
 
 
         ageViewHolder.nombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                refEmgSel.addValueEventListener(new ValueEventListener() {
+                refPreSel.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Emergencia e;
-                        String hora = dataSnapshot.child("hora").getValue(String.class);
-                        String idUsuario = dataSnapshot.child("idUsuario").getValue(String.class);
+                        Predenuncia p;
+                        String tipo = dataSnapshot.child("tipo").getValue(String.class);
+                        String nombre = dataSnapshot.child("nombre").getValue(String.class);
+                        String apellidos = dataSnapshot.child("apellidos").getValue(String.class);
+                        String dni = dataSnapshot.child("dni").getValue(String.class);
                         String ubicacion = dataSnapshot.child("ubicacion").getValue(String.class);
-                        e = new Emergencia(idUsuario,ubicacion,hora);
-                        refEmgEsp.child(item.get(i).getId()).push().setValue(e);
-                        borrarEmergenciaPendiente(e);
+                        String hora = dataSnapshot.child("hora").getValue(String.class);
+                        p = new Predenuncia(tipo,nombre,apellidos,dni,ubicacion,hora);
+                        refPreEsp.child(item.get(i).getId()).push().setValue(p);
+                        borrarPredenunciaPendiente(p);
                     }
 
                     @Override
@@ -97,25 +100,21 @@ public static class AgeViewHolder extends RecyclerView.ViewHolder {
                 });
                 context=view.getContext();
                 Toast.makeText(view.getContext(),"Predenuncia asignada a "+item.get(i).getApellidos()+", "+item.get(i).getNombre(),Toast.LENGTH_SHORT).show();
-
             }
         });
-
     }
 
-    private void borrarEmergenciaPendiente(final Emergencia e){
-        refEmgPen.addValueEventListener(new ValueEventListener() {
+    private void borrarPredenunciaPendiente(final Predenuncia p){
+        refPrePen.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Emergencia emergencia = snapshot.getValue(Emergencia.class);
-                    if(e.getHora().equals(emergencia.getHora())&&e.getIdUsuario().equals(emergencia.getIdUsuario())&&e.getUbicacion().equals(emergencia.getUbicacion())){
-                        refEmgPen.child(snapshot.getKey()).removeValue();
-                        //Toast.makeText(context,snapshot.getKey(),Toast.LENGTH_SHORT).show();
+                    Predenuncia pre = snapshot.getValue(Predenuncia.class);
+                    if(pre.getTipo().equals(p.getTipo()) && pre.getNombre().equals(p.getNombre()) && pre.getApellidos().equals(p.getApellidos()) &&
+                            pre.getDni().equals(p.getDni()) && pre.getUbicacion().equals(p.getUbicacion()) && pre.getHora().equals(p.getHora())){
+                        refPrePen.child(snapshot.getKey()).removeValue();
                     }
-
                 }
-
             }
 
             @Override

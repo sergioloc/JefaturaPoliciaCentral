@@ -7,7 +7,7 @@
         android:id="@+id/card_agente"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/card_pink"
+        android:background="@drawable/card_green"
         android:layout_margin="5dp"/>
 
     <TextView
