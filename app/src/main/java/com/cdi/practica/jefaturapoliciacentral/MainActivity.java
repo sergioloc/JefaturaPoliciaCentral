@@ -285,6 +285,11 @@ public class MainActivity extends AppCompatActivity {
         refPre.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                pre1.removeAll(pre1);
+                pre2.removeAll(pre2);
+                pre3.removeAll(pre3);
+                pre4.removeAll(pre4);
+                pre5.removeAll(pre5);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Predenuncia predenuncia = snapshot.getValue(Predenuncia.class);
                     if(predenuncia.getTipo().equals("Agresión")||predenuncia.getTipo().equals("Homicidio")){
@@ -312,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
         refAge.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                agentesList.removeAll(agentesList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Agente agente = snapshot.getValue(Agente.class);
                     agentesList.add(agente);
@@ -329,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
         refUsu.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                usuariosList.removeAll(usuariosList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Usuario usuario = snapshot.child("info").getValue(Usuario.class);
                     usuariosList.add(usuario);
@@ -346,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
         refEmg.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                emergenciasList.removeAll(emergenciasList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Emergencia emergencia = snapshot.getValue(Emergencia.class);
                     emergenciasList.add(emergencia);
@@ -363,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
         refDen.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                denunciasList.removeAll(denunciasList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Denuncia denuncia = snapshot.getValue(Denuncia.class);
                     denunciasList.add(denuncia);

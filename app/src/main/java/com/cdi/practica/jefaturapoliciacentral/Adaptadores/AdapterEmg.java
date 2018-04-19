@@ -81,7 +81,14 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
         rv.setHasFixedSize(true);
         LinearLayoutManager llm2 = new LinearLayoutManager(context);
         rv.setLayoutManager(llm2);
-        cargarAgentes();
+        int n = getNumeroAleatorio();
+        if(n==0){
+            cargarAgentes1();
+        }else if(n==1){
+            cargarAgentes2();
+        }else{
+            cargarAgentes3();
+        }
         AdapterAgeDialog adapterAge = new AdapterAgeDialog(agentesList);
         rv.setAdapter(adapterAge);
 
@@ -105,12 +112,27 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
 
     }
 
-    private void cargarAgentes(){
+    private void cargarAgentes1(){
         agentesList.add(new Agente("dmA60cSLAGOr7dT7FN7U5L32i4w2","Micheal","Scofield"));
         agentesList.add(new Agente("jtNpdTBzKVNbExwYGpILQk6Fsr62","Thomas","Shelby"));
         agentesList.add(new Agente("Ft2E9tHhbmcKgH1eeZRr3voWxZF3","Marty","McFly"));
-
     }
+    private void cargarAgentes2(){
+        agentesList.add(new Agente("wDkuHILstCRVW1CDY6JjM1rUXPD3","Jessica","Jones"));
+        agentesList.add(new Agente("RFCF1mNkJLTxxOC94mkHSP3a8Ry1","Wade","Wilson"));
+    }
+    private void cargarAgentes3(){
+        agentesList.add(new Agente("2nXdpDoj0jXdNVXtZQAm8JdpiRv1","Mila","Jovovich"));
+        agentesList.add(new Agente("jqGT1UV177ONP51d1q5GB6Pzlcj1","John","McClayne"));
+        agentesList.add(new Agente("zCZzjtoVZpPoNqzbRU8Cgo6Bo7V2","Lily","James"));
+        agentesList.add(new Agente("0trpRI5UkEdxqXHGOtBIM7jRCzK2","Jamie","Foxx"));
+    }
+
+    private int getNumeroAleatorio(){
+        int numero = (int) (Math.random() * 3);
+        return numero;
+    }
+
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

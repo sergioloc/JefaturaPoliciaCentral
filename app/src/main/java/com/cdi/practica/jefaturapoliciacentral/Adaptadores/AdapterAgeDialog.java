@@ -57,7 +57,7 @@ public static class AgeViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public AdapterAge.AgeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_agente_dialog, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_agente, viewGroup, false);
         AdapterAge.AgeViewHolder pvh = new AdapterAge.AgeViewHolder(v);
         return pvh;
     }

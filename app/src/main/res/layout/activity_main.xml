@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="#375052">
+    android:background="#374952">
 
         <devlight.io.library.ntb.NavigationTabBar
             app:ntb_title_mode="all"

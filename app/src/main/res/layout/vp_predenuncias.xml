@@ -26,13 +26,37 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"/>
 
+    <TextView
+        android:id="@+id/textoHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_below="@id/textoPre"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:text="Hora"/>
+
+    <TextView
+        android:id="@+id/textoLugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/textoHora"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/textoHora"
+        android:layout_marginLeft="40dp"
+        android:text="Ubicación"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_below="@id/textoPre"/>
+        android:layout_below="@id/textoHora"/>
 
 </RelativeLayout>
