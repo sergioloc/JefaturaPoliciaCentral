@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Agente;
@@ -29,12 +30,14 @@ public class AdapterPre extends RecyclerView.Adapter<AdapterPre.PreViewHolder>{
     private Context context;
 
     public static class PreViewHolder extends RecyclerView.ViewHolder {
+        ImageView card;
         TextView tipo;
         TextView ubicacion;
         TextView hora;
 
         PreViewHolder(View itemView) {
             super(itemView);
+            card = (ImageView)itemView.findViewById(R.id.iv_predenuncia);
             tipo = (TextView)itemView.findViewById(R.id.textoTipo);
             ubicacion = (TextView)itemView.findViewById(R.id.textoLugar);
             hora = (TextView)itemView.findViewById(R.id.textoHora);
@@ -77,7 +80,7 @@ public class AdapterPre extends RecyclerView.Adapter<AdapterPre.PreViewHolder>{
         LinearLayoutManager llm2 = new LinearLayoutManager(context);
         rv.setLayoutManager(llm2);
         cargarAgentes();
-        AdapterAgeDialog2 adapterAge2 = new AdapterAgeDialog2(agentesList);
+        AdapterAgeDialog2 adapterAge2 = new AdapterAgeDialog2(agentesList,dialog);
         rv.setAdapter(adapterAge2);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -89,7 +92,7 @@ public class AdapterPre extends RecyclerView.Adapter<AdapterPre.PreViewHolder>{
                 dialog.dismiss();
             }
         });
-        preViewHolder.ubicacion.setOnClickListener(new View.OnClickListener() {
+        preViewHolder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Predenuncia e = new Predenuncia(item.get(i).getTipo(),item.get(i).getNombre(),item.get(i).getApellidos(),item.get(i).getDni(),item.get(i).getUbicacion(),item.get(i).getHora());

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +35,14 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
     private Context context;
 
     public static class EmgViewHolder extends RecyclerView.ViewHolder {
+        ImageView card;
         TextView idUsuario;
         TextView ubicacion;
         TextView hora;
 
         EmgViewHolder(View itemView) {
             super(itemView);
+            card = (ImageView)itemView.findViewById(R.id.iv_emergencia);
             idUsuario = (TextView)itemView.findViewById(R.id.textoTipo);
             ubicacion = (TextView)itemView.findViewById(R.id.textoLugar);
             hora = (TextView)itemView.findViewById(R.id.textoHora);
@@ -89,7 +92,7 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
         }else{
             cargarAgentes3();
         }
-        AdapterAgeDialog adapterAge = new AdapterAgeDialog(agentesList);
+        AdapterAgeDialog adapterAge = new AdapterAgeDialog(agentesList,dialog);
         rv.setAdapter(adapterAge);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,7 +104,7 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
                 dialog.dismiss();
             }
         });
-        emgViewHolder.ubicacion.setOnClickListener(new View.OnClickListener() {
+        emgViewHolder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Emergencia e = new Emergencia(item.get(i).getIdUsuario(),item.get(i).getUbicacion(),item.get(i).getHora());
@@ -129,8 +132,7 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
     }
 
     private int getNumeroAleatorio(){
-        int numero = (int) (Math.random() * 3);
-        return numero;
+        return (int) (Math.random() * 3);
     }
 
 

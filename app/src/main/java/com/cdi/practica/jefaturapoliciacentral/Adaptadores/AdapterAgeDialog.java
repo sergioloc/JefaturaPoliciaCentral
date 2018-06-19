@@ -1,5 +1,6 @@
 package com.cdi.practica.jefaturapoliciacentral.Adaptadores;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,24 +31,26 @@ public class AdapterAgeDialog extends RecyclerView.Adapter<AdapterAge.AgeViewHol
 
     private DatabaseReference refEmgPen,refEmgEsp,refEmgSel;
     private Context context;
+    private Dialog dialog;
 
-public static class AgeViewHolder extends RecyclerView.ViewHolder {
-    ImageView card;
-    TextView id;
-    TextView nombre;
+    public static class AgeViewHolder extends RecyclerView.ViewHolder {
+        ImageView card;
+        TextView id;
+        TextView nombre;
 
-    AgeViewHolder(View itemView) {
-        super(itemView);
-        id = (TextView)itemView.findViewById(R.id.textoId);
-        nombre = (TextView)itemView.findViewById(R.id.textoNombre);
-        card = (ImageView) itemView.findViewById(R.id.card_agente);
+        AgeViewHolder(View itemView) {
+            super(itemView);
+            id = (TextView)itemView.findViewById(R.id.textoId);
+            nombre = (TextView)itemView.findViewById(R.id.textoNombre);
+            card = (ImageView) itemView.findViewById(R.id.card_agente);
+        }
     }
-}
 
     ArrayList<Agente> item;
 
-    public AdapterAgeDialog(ArrayList<Agente> item){
+    public AdapterAgeDialog(ArrayList<Agente> item, Dialog dialog){
         this.item = item;
+        this.dialog = dialog;
     }
 
     @Override
@@ -95,8 +98,9 @@ public static class AgeViewHolder extends RecyclerView.ViewHolder {
                     }
 
                 });
+                dialog.dismiss();
                 context=view.getContext();
-                Toast.makeText(view.getContext(),"Predenuncia asignada a "+item.get(i).getApellidos()+", "+item.get(i).getNombre(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(),"Predenuncia asignada a "+item.get(i).getApellidos()+", "+item.get(i).getNombre(),Toast.LENGTH_LONG).show();
 
             }
         });

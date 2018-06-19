@@ -1,5 +1,6 @@
 package com.cdi.practica.jefaturapoliciacentral;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterAge;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private AdapterEmg adapterEmg;
     private AdapterDen adapterDen;
     private AdapterEve adapterEve;
+    private int numTab;
+    private Dialog dialogInfoPre;
+    private String tituloInfoPre, tiposInfoPre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,18 +240,28 @@ public class MainActivity extends AppCompatActivity {
                         if(pos==0){
                             textoPre.setText("Predenuncias nivel 1");
                             adapterPre = new AdapterPre(pre1);
+                            tituloInfoPre = "Predenuncias de nivel 1:";
+                            tiposInfoPre = "- Agresión\n- Homicidio";
                         }else if (pos==1){
                             textoPre.setText("Predenuncias nivel 2");
-                             adapterPre = new AdapterPre(pre2);
+                            adapterPre = new AdapterPre(pre2);
+                            tituloInfoPre = "Predenuncias de nivel 2:";
+                            tiposInfoPre = "- Abuso\n- Robo\n- Acoso\n- Amenaza";
                         }else if (pos==2){
                             textoPre.setText("Predenuncias nivel 3");
                             adapterPre = new AdapterPre(pre3);
+                            tituloInfoPre = "Predenuncias de nivel 3:";
+                            tiposInfoPre = "- Hurto\n- Lesión";
                         }else if (pos==3){
                             textoPre.setText("Predenuncias nivel 4");
                             adapterPre = new AdapterPre(pre4);
+                            tituloInfoPre = "Predenuncias de nivel 4:";
+                            tiposInfoPre = "- Fraude\\n- Estafa";
                         }else if (pos==4){
                             textoPre.setText("Predenuncias nivel 5");
                             adapterPre = new AdapterPre(pre5);
+                            tituloInfoPre = "Predenuncias de nivel 5:";
+                            tiposInfoPre = "- Difamación\n- Injuria";
                         }
                         rvPre.setAdapter(adapterPre);
                     }
@@ -258,6 +273,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onTabReselected(TabLayout.Tab tab) {}
                 }
         );
+        botonInfoPredenuncias();
+        view.findViewById(R.id.iv_infoPre).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogInfoPre.show();
+            }
+        });
         cargarPredenuncias();
     }
     private void viewDenuncias(){
@@ -305,6 +327,23 @@ public class MainActivity extends AppCompatActivity {
         rvEve.setLayoutManager(llm);
         adapterEve = new AdapterEve(eventosList);
         rvEve.setAdapter(adapterEve);
+    }
+
+    private void botonInfoPredenuncias(){
+        dialogInfoPre = new Dialog(this);
+        dialogInfoPre.setContentView(R.layout.dialog_tipos_predenuncias);
+        TextView titulo = (TextView) dialogInfoPre.findViewById(R.id.pre_titulo);
+        TextView tipos = (TextView) dialogInfoPre.findViewById(R.id.pre_tipos);
+        titulo.setText(tituloInfoPre);
+        tipos.setText(tiposInfoPre);
+        Button aceptar = (Button) dialogInfoPre.findViewById(R.id.aceptar);
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogInfoPre.dismiss();
+            }
+        });
+
     }
 
     /**BBDD**/

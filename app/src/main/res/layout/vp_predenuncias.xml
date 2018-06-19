@@ -26,6 +26,16 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"/>
 
+    <ImageView
+        android:id="@+id/iv_infoPre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_info"
+        android:layout_alignTop="@+id/textoPre"
+        android:layout_alignBottom="@+id/textoPre"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"/>
+
     <TextView
         android:id="@+id/textoHora"
         android:layout_width="wrap_content"

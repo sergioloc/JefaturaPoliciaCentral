@@ -4,6 +4,7 @@
     android:layout_height="50dp">
 
     <ImageView
+        android:id="@+id/iv_emergencia"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/card_red"
@@ -17,7 +18,8 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:layout_marginLeft="20dp"
-        android:text="Hora"/>
+        android:text="Hora"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/textoTipo"
@@ -29,7 +31,8 @@
         android:visibility="invisible"
         android:textColor="@color/white"
         android:layout_marginLeft="40dp"
-        android:text="Tipo"/>
+        android:text="Tipo"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/textoLugar"
@@ -40,6 +43,9 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:layout_marginLeft="40dp"
-        android:text="Lugar"/>
+        android:text="Lugar"
+        android:clickable="false"/>
+
+
 
 </RelativeLayout>

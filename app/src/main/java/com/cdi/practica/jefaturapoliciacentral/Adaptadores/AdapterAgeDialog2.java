@@ -1,5 +1,6 @@
 package com.cdi.practica.jefaturapoliciacentral.Adaptadores;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class AdapterAgeDialog2 extends RecyclerView.Adapter<AdapterAge.AgeViewHo
 
     private DatabaseReference refPrePen,refPreEsp,refPreSel;
     private Context context;
+    private Dialog dialog;
 
     public static class AgeViewHolder2 extends RecyclerView.ViewHolder {
         ImageView card;
@@ -46,8 +48,9 @@ public class AdapterAgeDialog2 extends RecyclerView.Adapter<AdapterAge.AgeViewHo
 
     ArrayList<Agente> item;
 
-    public AdapterAgeDialog2(ArrayList<Agente> item){
+    public AdapterAgeDialog2(ArrayList<Agente> item, Dialog dialog){
         this.item = item;
+        this.dialog = dialog;
     }
 
     @Override
@@ -98,8 +101,9 @@ public class AdapterAgeDialog2 extends RecyclerView.Adapter<AdapterAge.AgeViewHo
                     }
 
                 });
+                dialog.dismiss();
                 context=view.getContext();
-                Toast.makeText(view.getContext(),"Predenuncia asignada a "+item.get(i).getApellidos()+", "+item.get(i).getNombre(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(),"Predenuncia asignada a "+item.get(i).getApellidos()+", "+item.get(i).getNombre(),Toast.LENGTH_LONG).show();
             }
         });
     }
