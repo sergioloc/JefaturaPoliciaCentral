@@ -15,12 +15,14 @@ import android.widget.TextView;
 
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterAge;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterDen;
+import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterEve;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterPre;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterEmg;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterUsu;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Agente;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Denuncia;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Emergencia;
+import com.cdi.practica.jefaturapoliciacentral.Objetos.Evento;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Predenuncia;
 import com.cdi.practica.jefaturapoliciacentral.Objetos.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private FirebaseUser user;
     private DatabaseReference refPre, refUsu, refAge, refEmg, refDen;
-    private ArrayList pre1,pre2,pre3,pre4,pre5,agentesList,usuariosList,emergenciasList,denunciasList;
-    private RecyclerView rvPre, rvAge, rvUsu, rvDen;
+    private ArrayList pre1,pre2,pre3,pre4,pre5,agentesList,usuariosList,emergenciasList,denunciasList,eventosList;
+    private RecyclerView rvPre, rvAge, rvUsu, rvDen, rvEve;
     private AdapterPre adapterPre;
     private AdapterAge adapterAge;
     private AdapterUsu adapterUsu;
     private AdapterEmg adapterEmg;
     private AdapterDen adapterDen;
+    private AdapterEve adapterEve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
-                return 5; //Numero de paginas
+                return 6; //Numero de paginas
             }
 
             @Override
@@ -103,7 +106,10 @@ public class MainActivity extends AppCompatActivity {
                     viewAgentes();
                 }else if(position==4){ //Usuarios
                     viewUsuarios();
+                }else if(position==5){ //Eventos
+                    viewEventos();
                 }
+
 
                 container.addView(view);
                 return view;
@@ -118,40 +124,48 @@ public class MainActivity extends AppCompatActivity {
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_emergencia),
                         Color.parseColor(colors[0])
-                ).title("Heart")
-                        .badgeTitle("NTB")
+                ).title("Emergencia")
+                        .badgeTitle("1")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_predenuncia),
                         Color.parseColor(colors[1])
-                ).title("Cup")
-                        .badgeTitle("with")
+                ).title("Predenuncia")
+                        .badgeTitle("2")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_denuncia),
                         Color.parseColor(colors[2])
-                ).title("Diploma")
-                        .badgeTitle("state")
+                ).title("Denuncia")
+                        .badgeTitle("3")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_police),
                         Color.parseColor(colors[3])
-                ).title("Flag")
-                        .badgeTitle("icon")
+                ).title("Agentes")
+                        .badgeTitle("4")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.icon_user),
                         Color.parseColor(colors[4])
-                ).title("Medal")
-                        .badgeTitle("777")
+                ).title("Usuarios")
+                        .badgeTitle("5")
+                        .build()
+        );
+        models.add(
+                new NavigationTabBar.Model.Builder(
+                        getResources().getDrawable(R.drawable.ic_event),
+                        Color.parseColor(colors[5])
+                ).title("Eventos")
+                        .badgeTitle("6")
                         .build()
         );
         navigationTabBar.setModels(models);
@@ -246,6 +260,17 @@ public class MainActivity extends AppCompatActivity {
         );
         cargarPredenuncias();
     }
+    private void viewDenuncias(){
+        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_denuncias, null, false);
+        denunciasList = new ArrayList();
+        rvDen = (RecyclerView) view.findViewById(R.id.rvDen);
+        rvDen.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rvDen.setLayoutManager(llm);
+        adapterDen = new AdapterDen(denunciasList);
+        rvDen.setAdapter(adapterDen);
+        cargarDenuncias();
+    }
     private void viewAgentes(){
         view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_agentes, null, false);
         agentesList = new ArrayList();
@@ -268,16 +293,18 @@ public class MainActivity extends AppCompatActivity {
         rvUsu.setAdapter(adapterUsu);
         cargarUsuarios();
     }
-    private void viewDenuncias(){
-        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_denuncias, null, false);
-        denunciasList = new ArrayList();
-        rvDen = (RecyclerView) view.findViewById(R.id.rvDen);
-        rvDen.setHasFixedSize(true);
+    private void viewEventos(){
+        view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_eventos, null, false);
+        eventosList = new ArrayList();
+        //Init
+        eventosList.add(new Evento("Feria del libro","c/ Alcala 10",50));
+        eventosList.add(new Evento("Fiesta","c/ Serrano 1",500));
+        rvEve = (RecyclerView) view.findViewById(R.id.rvEve);
+        rvEve.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        rvDen.setLayoutManager(llm);
-        adapterDen = new AdapterDen(denunciasList);
-        rvDen.setAdapter(adapterDen);
-        cargarDenuncias();
+        rvEve.setLayoutManager(llm);
+        adapterEve = new AdapterEve(eventosList);
+        rvEve.setAdapter(adapterEve);
     }
 
     /**BBDD**/
