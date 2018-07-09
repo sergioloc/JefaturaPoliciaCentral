@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterAge;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterDen;
 import com.cdi.practica.jefaturapoliciacentral.Adaptadores.AdapterEve;
@@ -41,7 +41,7 @@ import devlight.io.library.ntb.NavigationTabBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager viewPager,viewPager2;
+    private ViewPager viewPager;
     private View view;
     //Firebase
     private FirebaseDatabase database;
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private AdapterEmg adapterEmg;
     private AdapterDen adapterDen;
     private AdapterEve adapterEve;
-    private int numTab;
     private Dialog dialogInfoPre;
     private String tituloInfoPre, tiposInfoPre;
 
@@ -209,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         // View
         view = LayoutInflater.from(getBaseContext()).inflate(R.layout.vp_predenuncias, null, false);
         final TextView textoPre = (TextView) view.findViewById(R.id.textoPre);
+        final ImageView info = (ImageView) view.findViewById(R.id.iv_infoPre);
         // Tabs
         TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("1"));
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                             textoPre.setText("Predenuncias nivel 4");
                             adapterPre = new AdapterPre(pre4);
                             tituloInfoPre = "Predenuncias de nivel 4:";
-                            tiposInfoPre = "- Fraude\\n- Estafa";
+                            tiposInfoPre = "- Fraude\n- Estafa";
                         }else if (pos==4){
                             textoPre.setText("Predenuncias nivel 5");
                             adapterPre = new AdapterPre(pre5);
@@ -264,6 +264,13 @@ public class MainActivity extends AppCompatActivity {
                             tiposInfoPre = "- Difamación\n- Injuria";
                         }
                         rvPre.setAdapter(adapterPre);
+                        botonInfoPredenuncias();
+                        info.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogInfoPre.show();
+                            }
+                        });
                     }
 
                     @Override
@@ -273,13 +280,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onTabReselected(TabLayout.Tab tab) {}
                 }
         );
-        botonInfoPredenuncias();
-        view.findViewById(R.id.iv_infoPre).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogInfoPre.show();
-            }
-        });
+
         cargarPredenuncias();
     }
     private void viewDenuncias(){
@@ -321,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
         //Init
         eventosList.add(new Evento("Feria del libro","c/ Alcala 10",50));
         eventosList.add(new Evento("Fiesta","c/ Serrano 1",500));
+        eventosList.add(new Evento("Desfile","c/ Gran Via 15",100));
         rvEve = (RecyclerView) view.findViewById(R.id.rvEve);
         rvEve.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -329,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
         rvEve.setAdapter(adapterEve);
     }
 
+    /**Buttons**/
     private void botonInfoPredenuncias(){
         dialogInfoPre = new Dialog(this);
         dialogInfoPre.setContentView(R.layout.dialog_tipos_predenuncias);
@@ -343,7 +346,6 @@ public class MainActivity extends AppCompatActivity {
                 dialogInfoPre.dismiss();
             }
         });
-
     }
 
     /**BBDD**/
