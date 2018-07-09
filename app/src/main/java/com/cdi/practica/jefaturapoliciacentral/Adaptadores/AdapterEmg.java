@@ -116,9 +116,10 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
     }
 
     private void cargarAgentes1(){
-        agentesList.add(new Agente("dmA60cSLAGOr7dT7FN7U5L32i4w2","Micheal","Scofield"));
+        //agentesList.add(new Agente("dmA60cSLAGOr7dT7FN7U5L32i4w2","Micheal","Scofield"));
         agentesList.add(new Agente("jtNpdTBzKVNbExwYGpILQk6Fsr62","Thomas","Shelby"));
         agentesList.add(new Agente("Ft2E9tHhbmcKgH1eeZRr3voWxZF3","Marty","McFly"));
+        agentesList.add(new Agente("0trpRI5UkEdxqXHGOtBIM7jRCzK2","Jamie","Foxx"));
     }
     private void cargarAgentes2(){
         agentesList.add(new Agente("wDkuHILstCRVW1CDY6JjM1rUXPD3","Jessica","Jones"));
@@ -128,7 +129,6 @@ public class AdapterEmg extends RecyclerView.Adapter<AdapterEmg.EmgViewHolder>{
         agentesList.add(new Agente("2nXdpDoj0jXdNVXtZQAm8JdpiRv1","Mila","Jovovich"));
         agentesList.add(new Agente("jqGT1UV177ONP51d1q5GB6Pzlcj1","John","McClayne"));
         agentesList.add(new Agente("zCZzjtoVZpPoNqzbRU8Cgo6Bo7V2","Lily","James"));
-        agentesList.add(new Agente("0trpRI5UkEdxqXHGOtBIM7jRCzK2","Jamie","Foxx"));
     }
 
     private int getNumeroAleatorio(){

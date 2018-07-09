@@ -103,9 +103,11 @@ public class AdapterPre extends RecyclerView.Adapter<AdapterPre.PreViewHolder>{
     }
 
     private void cargarAgentes(){
-        agentesList.add(new Agente("dmA60cSLAGOr7dT7FN7U5L32i4w2","Micheal","Scofield"));
+        //agentesList.add(new Agente("dmA60cSLAGOr7dT7FN7U5L32i4w2","Micheal","Scofield"));
         agentesList.add(new Agente("jtNpdTBzKVNbExwYGpILQk6Fsr62","Thomas","Shelby"));
         agentesList.add(new Agente("Ft2E9tHhbmcKgH1eeZRr3voWxZF3","Marty","McFly"));
+        agentesList.add(new Agente("wDkuHILstCRVW1CDY6JjM1rUXPD3","Jessica","Jones"));
+
 
     }
 
